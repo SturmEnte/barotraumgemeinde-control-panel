@@ -6,7 +6,7 @@
 	"type": "commonjs",
 	"main": "src/main.ts",
 	"scripts": {
-		"test": "nodemon src/main.ts"
+		"test": "nodemon"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.1",
