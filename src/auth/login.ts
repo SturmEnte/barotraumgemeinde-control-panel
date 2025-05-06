@@ -1,13 +1,32 @@
-import { Router } from "express";
+import { Router, urlencoded } from "express";
+import { compareSync } from "bcrypt";
 import { join } from "path";
+
+const config = require("../../config.json");
 
 const router = Router();
 
-router.get("/", (req, res) => res.sendFile(join(__dirname, "../", "views", "login.html")));
+router.get("/", (req, res) => res.render(join(__dirname, "../", "views", "login.ejs")));
+
+router.use(urlencoded());
 
 router.post("/", (req, res) => {
-	console.log(req.body);
-	res.send(":)");
+	let error;
+
+	if (!req.body || !req.body.password) {
+		error = "Oops! You forgot to enter your password.";
+	}
+
+	if (!compareSync(req.body.password, config.password)) {
+		error = "Oops! The password is incorect.";
+	}
+
+	if (error) {
+		res.render(join(__dirname, "../views/login.ejs"), { error });
+		return;
+	}
+
+	res.cookie("session", "1234", { path: "/", httpOnly: true, maxAge: config.sessions.maxAge }).redirect("/dashboard");
 });
 
 export default router;
