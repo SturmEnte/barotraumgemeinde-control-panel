@@ -2,6 +2,8 @@ import { Router, urlencoded } from "express";
 import { compareSync } from "bcrypt";
 import { join } from "path";
 
+import { newToken } from "../util/sessionManager";
+
 const config = require("../../config.json");
 
 const router = Router();
@@ -26,7 +28,7 @@ router.post("/", (req, res) => {
 		return;
 	}
 
-	res.cookie("session", "1234", { path: "/", httpOnly: true, maxAge: config.sessions.maxAge }).redirect("/dashboard");
+	res.cookie("session", newToken(config.sessions.expireIn, config.sessions.tokenBytes), { path: "/", httpOnly: true, maxAge: config.sessions.expireIn }).redirect("/dashboard");
 });
 
 export default router;

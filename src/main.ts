@@ -26,5 +26,5 @@ app.use(express.static(join(__dirname, "public")));
 app.use("/login", loginRouter);
 
 app.listen(config.port, () => {
-	console.log("Backend listening to port", config.port);
+	console.log("Server listening to port", config.port);
 });
