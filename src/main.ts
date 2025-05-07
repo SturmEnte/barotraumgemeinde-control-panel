@@ -25,7 +25,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-app.use(express.static(join(__dirname, "public")));
+app.use(express.static(join(__dirname, "../public")));
 
 app.use("/login", loginRouter);
 

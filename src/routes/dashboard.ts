@@ -6,7 +6,7 @@ const config = require("../../config.json");
 const router = Router();
 
 router.get("/", (req, res) => {
-	res.send("Dashboard");
+	res.render(join(__dirname, "../views/dashboard.ejs"), { servers: config.servers });
 });
 
 export default router;
