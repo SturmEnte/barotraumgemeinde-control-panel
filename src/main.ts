@@ -15,7 +15,8 @@ if (!isConfigValid(config)) {
 console.log("Config validatet");
 
 // Server setup
-import loginRouter from "./auth/login";
+import loginRouter from "./routes/login";
+import dashboardRouter from "./routes/dashboard";
 
 const app = express();
 
