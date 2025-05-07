@@ -1,5 +1,8 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { join } from "path";
+
+import { isTokenValid } from "./util/sessionManager";
 
 import isConfigValid from "./util/isConfigValid";
 
@@ -25,6 +28,24 @@ app.set("view engine", "ejs");
 app.use(express.static(join(__dirname, "public")));
 
 app.use("/login", loginRouter);
+
+app.use(cookieParser());
+
+app.all("*splat", (req, res, next) => {
+	if (!req.cookies.session) {
+		res.clearCookie("session").redirect("/login");
+		return;
+	}
+
+	if (!isTokenValid(req.cookies.session)) {
+		res.clearCookie("session").redirect("/login");
+		return;
+	}
+
+	next();
+});
+
+app.use("/dashboard", dashboardRouter);
 
 app.listen(config.port, () => {
 	console.log("Server listening to port", config.port);
