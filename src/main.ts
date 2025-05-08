@@ -16,7 +16,7 @@ if (!isConfigValid(config)) {
 	process.exit(1);
 }
 
-console.log("Config validatet");
+console.log("Config validated");
 
 // Server setup
 import loginRouter from "./routes/login";
