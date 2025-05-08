@@ -12,6 +12,7 @@ const config = require("../config.json");
 console.log("Validating config...");
 
 if (!isConfigValid(config)) {
+	console.log("Config invalid. Please adjust it accordingly. What and how it needs to be included in the config can be seen in the README.");
 	process.exit(1);
 }
 
