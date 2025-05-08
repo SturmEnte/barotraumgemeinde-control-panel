@@ -11,7 +11,11 @@
 		<div id="servers">
 			<% for(let i = 0; i < servers.length; i++) { %>
 			<div class="server">
-				<div><%= servers[i].name %></div>
+				<form action="/dashboard/restart" method="post">
+					<div><%= servers[i].name %></div>
+					<input type="text" name="id" value="<%= servers[i].id %>" hidden />
+					<input type="submit" value="Restart" />
+				</form>
 			</div>
 			<% } %>
 		</div>
