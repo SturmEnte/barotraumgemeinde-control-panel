@@ -48,6 +48,10 @@ app.all("*splat", (req, res, next) => {
 
 app.use("/dashboard", dashboardRouter);
 
+app.all("*splat", (req, res) => {
+	res.status(404).sendFile(join(__dirname, "./views/404.html"));
+});
+
 app.listen(config.port, () => {
 	console.log("Server listening to port", config.port);
 });
