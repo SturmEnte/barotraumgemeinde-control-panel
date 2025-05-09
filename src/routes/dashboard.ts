@@ -1,5 +1,6 @@
 import { Router, urlencoded } from "express";
 import { join } from "path";
+import { writeFileSync } from "fs";
 
 const config = require("../../config.json");
 
@@ -20,15 +21,23 @@ router.post("/restart", (req, res) => {
 	} else {
 		id = req.body.id;
 
-		for (let i = 0; i < config.servers; i++) {
+		for (let i = 0; i < config.servers.length; i++) {
 			let server = config.servers[i];
 
 			if (server.id != id) {
 				continue;
 			}
 
-			// TBD Initiate restart
-			result = "Initiated restart";
+			const filePath = join(__dirname, "../../", server.path);
+
+			try {
+				writeFileSync(filePath, Date.now().toString());
+				result = "Initiated restart";
+			} catch (err) {
+				console.error(err);
+				result = "Error while initiating restart";
+			}
+
 			break;
 		}
 	}
