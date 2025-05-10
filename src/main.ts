@@ -26,6 +26,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 
+// Make the public folder accessible
 app.use(express.static(join(__dirname, "../public")));
 
 app.use("/login", loginRouter);
@@ -35,6 +36,7 @@ app.get("/logout", (req, res) => {
 
 app.use(cookieParser());
 
+// Make sure that the dashboard is only accessible if the client is logged in
 app.all("*splat", (req, res, next) => {
 	if (!req.cookies.session) {
 		res.clearCookie("session").redirect("/login");
@@ -49,8 +51,14 @@ app.all("*splat", (req, res, next) => {
 	next();
 });
 
+// Dashboard
+app.all("/", (_, res) => {
+	res.redirect("/dashboard");
+});
+
 app.use("/dashboard", dashboardRouter);
 
+// Catch all other sites and respond with not found
 app.all("*splat", (req, res) => {
 	res.status(404).sendFile(join(__dirname, "./views/404.html"));
 });
