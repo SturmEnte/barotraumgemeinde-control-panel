@@ -33,6 +33,7 @@ router.post("/restart", (req, res) => {
 
 			try {
 				writeFileSync(filePath, Date.now().toString());
+				console.log("Initiated restart at " + Date.now());
 				result = "Initiated restart";
 				status = "1";
 			} catch (err) {
