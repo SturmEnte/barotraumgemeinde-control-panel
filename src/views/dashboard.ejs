@@ -35,7 +35,7 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= servers[i].name %></h5>
 							<form action="/dashboard/restart" method="post">
-								<div>Restart initiated at:</div>
+								<h6>Restart initiated at:</h6>
 								<div><%= servers[i].restartInitiatedAt %></div>
 								<input type="text" name="id" value="<%= servers[i].id %>" hidden />
 								<button type="submit" class="btn btn-primary w-100 mt-3">Restart</button>
