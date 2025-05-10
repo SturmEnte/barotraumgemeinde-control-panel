@@ -5,8 +5,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Barotraumgemeinde | Dashboard</title>
 		<link rel="stylesheet" href="/vendor/bootstrap-5.3.6/css/bootstrap.min.css" />
+		<style>
+			.fade {
+				transition: opacity 0.65s ease-in-out;
+			}
+
+			#popup {
+				border: 1px solid #d39e00;
+			}
+		</style>
 	</head>
 	<body class="bg-dark text-white">
+		<% if (typeof result != 'undefined') { %>
+		<div id="popup" class="alert alert-warning alert-dismissible fade position-absolute top-0 start-50 translate-middle-x mt-3" role="alert">
+			<strong><%= result %></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<% } %>
+
 		<div class="container py-5">
 			<a href="/logout" class="btn btn-danger position-absolute top-0 end-0 m-3">Logout</a>
 			<h1 class="text-center mb-4">Barotraumgemeinde Control Panel</h1>
@@ -27,5 +43,12 @@
 				<% } %>
 			</div>
 		</div>
+
+		<script src="/vendor/bootstrap-5.3.6/js/bootstrap.bundle.min.js"></script>
+		<script>
+			window.onload = () => {
+				document.getElementById("popup").classList.add("show");
+			};
+		</script>
 	</body>
 </html>

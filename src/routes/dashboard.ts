@@ -7,7 +7,7 @@ const config = require("../../config.json");
 const router = Router();
 
 router.get("/", (req, res) => {
-	res.render(join(__dirname, "../views/dashboard.ejs"), { servers: config.servers });
+	res.render(join(__dirname, "../views/dashboard.ejs"), { servers: config.servers, result: req.query.result });
 });
 
 router.use(urlencoded());
