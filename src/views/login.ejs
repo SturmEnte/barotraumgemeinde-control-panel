@@ -4,16 +4,21 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Barotraumgemeinde | Login</title>
-		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/vendor/bootstrap-5.3.6/css/bootstrap.min.css" />
 	</head>
-	<body>
-		<% if (typeof error != 'undefined') { %>
-		<p style="color: red"><%= error %></p>
-		<% } %>
-		<form action="/login" method="POST">
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password" />
-			<input type="submit" value="Login" />
-		</form>
+	<body class="bg-dark text-white d-flex justify-content-center align-items-center vh-100">
+		<div class="card bg-secondary text-white p-4" style="width: 22rem">
+			<h1 class="text-center mb-4">Login</h1>
+			<% if (typeof error != 'undefined') { %>
+			<div class="alert alert-danger" role="alert"><%= error %></div>
+			<% } %>
+			<form action="/login" method="POST">
+				<div class="mb-3">
+					<label for="password" class="form-label">Password</label>
+					<input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required />
+				</div>
+				<button type="submit" class="btn btn-primary w-100">Login</button>
+			</form>
+		</div>
 	</body>
 </html>
