@@ -11,13 +11,14 @@
 			}
 
 			#popup {
-				border: 1px solid #d39e00;
+				--popup-color: <%= status == 1 ? '#198754' : '#dc3545' %>;
+				border: 2px solid var(--popup-color);
 			}
 		</style>
 	</head>
 	<body class="bg-dark text-white">
-		<% if (typeof result != 'undefined') { %>
-		<div id="popup" class="alert alert-warning alert-dismissible fade position-absolute top-0 start-50 translate-middle-x mt-3" role="alert">
+		<% if (typeof result !== 'undefined' && typeof status !== 'undefined') { %>
+		<div id="popup" class="alert <%= status == 1 ? 'alert-success' : 'alert-danger' %> alert-dismissible fade position-absolute top-0 start-50 translate-middle-x mt-3" role="alert">
 			<strong><%= result %></strong>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
@@ -28,7 +29,7 @@
 			<h1 class="text-center mb-4">Barotraumgemeinde Control Panel</h1>
 			<h2 class="text-center mb-5">Servers</h2>
 			<div id="servers" class="row g-4 justify-content-center">
-				<% for(let i = 0; i < servers.length; i++) { %>
+				<% for (let i = 0; i < servers.length; i++) { %>
 				<div class="col-md-4">
 					<div class="card bg-secondary text-white">
 						<div class="card-body">
@@ -45,7 +46,7 @@
 		</div>
 
 		<script src="/vendor/bootstrap-5.3.6/js/bootstrap.bundle.min.js"></script>
-		<% if (typeof result != 'undefined') { %>
+		<% if (typeof result !== 'undefined' && typeof status !== 'undefined') { %>
 		<script>
 			window.onload = () => {
 				const popup = document.getElementById("popup");
@@ -53,7 +54,7 @@
 
 				setTimeout(() => {
 					popup.classList.remove("show");
-				}, 5000);
+				}, 5000); // Fade out after 5 seconds
 			};
 		</script>
 		<% } %>
