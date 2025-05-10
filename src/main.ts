@@ -29,6 +29,9 @@ app.set("view engine", "ejs");
 app.use(express.static(join(__dirname, "../public")));
 
 app.use("/login", loginRouter);
+app.get("/logout", (req, res) => {
+	res.clearCookie("session").redirect("/login");
+});
 
 app.use(cookieParser());
 
