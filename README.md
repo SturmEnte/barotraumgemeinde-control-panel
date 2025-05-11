@@ -32,7 +32,7 @@ The config is a simple *config.json* file in the root directory of the server (w
 ```
 - `listenHostname` the hostname the server will listen to. If it is not set, will 0.0.0.0 be used
 - `listenPort` is the port the server will listen to. If it is not set, will 3000 be used
-- `basePath` allows the server to work with reverse proxies. It will but the base url before redirects and resources on the site like css files. By default will none (equivalent to an empty string) be used
+- `basePath` allows the server to work with reverse proxies. It will put the base url before redirects and resources on the site like css files. By default will none (equivalent to an empty string) be used
 - `password` is the desired password for accessing the dashboard. It has to be hashed and saltet with bcrypt. This has to be set
 - `sessions.expireIn` is the time in milliseconds a session can last at most. The default value for this is 1 hour (3600000 ms)
 - `session.tokenBytes` is the amount of bytes a session token consists of. The default value for this is 20
