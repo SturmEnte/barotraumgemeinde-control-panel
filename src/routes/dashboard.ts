@@ -15,7 +15,7 @@ const router = Router();
 
 router.get("/", (req, res) => {
 	// Add restart inititiation times if possible
-	let servers = config.servers;
+	let servers = JSON.parse(JSON.stringify(config.servers));
 
 	for (let i in servers) {
 		let server = servers[i];
@@ -40,7 +40,7 @@ router.get("/", (req, res) => {
 		server.restartInitiatedAt = formatDate(date);
 	}
 
-	res.render(join(__dirname, "../views/dashboard.ejs"), { basePath: config.basePath, servers: config.servers, status: req.query.status, result: req.query.result });
+	res.render(join(__dirname, "../views/dashboard.ejs"), { basePath: config.basePath, servers: servers, status: req.query.status, result: req.query.result });
 });
 
 router.use(urlencoded());
