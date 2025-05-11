@@ -64,5 +64,5 @@ app.all("*splat", (req, res) => {
 });
 
 app.listen(config.listenPort, config.listenHostname, () => {
-	console.log("Server listening to ", config.listenHostname + ":" + config.listenPort);
+	console.log("Server listening to", config.listenHostname + ":" + config.listenPort);
 });
