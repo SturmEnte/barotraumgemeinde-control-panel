@@ -98,10 +98,8 @@ router.post("/stop-restart", (req, res) => {
 				continue;
 			}
 
-			const filePath = join(__dirname, "../../", server.path);
-
 			try {
-				writeFileSync(filePath, "");
+				writeFileSync(server.path, "");
 				console.log("Stopped restart restart at " + formatDate(new Date()));
 				result = "Stopped restart";
 				status = "1";
