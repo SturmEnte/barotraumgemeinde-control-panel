@@ -1,8 +1,13 @@
+import { chdir } from "process";
 import { Router, urlencoded } from "express";
 import { join } from "path";
 import { readFileSync, writeFileSync, existsSync } from "fs";
 
 import formatDate from "../util/formatDate";
+
+// Change the working directory to the root directory of the project
+// This is to enable relative and absolute paths in the config
+chdir(join(__dirname, "../../"));
 
 const config = require("../../config.json");
 
@@ -15,13 +20,11 @@ router.get("/", (req, res) => {
 	for (let i in servers) {
 		let server = servers[i];
 
-		const filePath = join(__dirname, "../../", server.path);
-
-		if (!existsSync(filePath)) {
+		if (!existsSync(server.path)) {
 			continue;
 		}
 
-		let fileContent = readFileSync(filePath).toString();
+		let fileContent = readFileSync(server.path).toString();
 
 		if (!fileContent) {
 			continue;
@@ -59,10 +62,8 @@ router.post("/restart", (req, res) => {
 				continue;
 			}
 
-			const filePath = join(__dirname, "../../", server.path);
-
 			try {
-				writeFileSync(filePath, Date.now().toString());
+				writeFileSync(server.path, Date.now().toString());
 				console.log("Initiated restart at " + formatDate(new Date()));
 				result = "Initiated restart";
 				status = "1";
