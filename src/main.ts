@@ -63,6 +63,6 @@ app.all("*splat", (req, res) => {
 	res.status(404).render(join(__dirname, "./views/404.ejs"), { basePath: config.basePath });
 });
 
-app.listen(config.port, () => {
-	console.log("Server listening to port", config.port);
+app.listen(config.listenPort, config.listenHostname, () => {
+	console.log("Server listening to ", config.listenHostname + ":" + config.listenPort);
 });

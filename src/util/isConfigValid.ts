@@ -5,13 +5,19 @@ export default function (config: any) {
 	}
 
 	// Port
-	if (!config.port) {
-		console.log("Port not defined");
+	if (!config.listenPort) {
+		console.log("listenPort not defined");
 		return false;
 	}
 
-	if (isNaN(Number(config.port))) {
-		console.log("Port is not a number");
+	if (isNaN(Number(config.listenPort))) {
+		console.log("listenPort is not a number");
+		return false;
+	}
+
+	// Hostname
+	if (!config.listenHostname) {
+		console.log("listenHostname not defined");
 		return false;
 	}
 
