@@ -80,6 +80,41 @@ router.post("/restart", (req, res) => {
 	res.redirect(config.basePath + "/dashboard?" + params.toString());
 });
 
+router.post("/stop-restart", (req, res) => {
+	let id: string;
+	let status: string = "0"; // 0 = fail, 1 = success
+	let result: string = "Invalid id";
+
+	if (!req.body || !req.body.id) {
+		result = "No id given";
+	} else {
+		id = req.body.id;
+
+		for (let i = 0; i < config.servers.length; i++) {
+			let server = config.servers[i];
+
+			if (server.id != id) {
+				continue;
+			}
+
+			const filePath = join(__dirname, "../../", server.path);
+
+			try {
+				writeFileSync(filePath, "");
+				console.log("Stopped restart restart at " + formatDate(new Date()));
+				result = "Stopped restart";
+				status = "1";
+			} catch (err) {
+				console.error(err);
+				result = "Error while stopping restart";
+			}
+
+			break;
+		}
+	}
+
+	const params = new URLSearchParams({ status, result });
+
 	res.redirect(req.baseUrl + "?" + params.toString());
 });
 
