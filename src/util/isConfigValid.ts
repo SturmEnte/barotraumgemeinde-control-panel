@@ -16,10 +16,11 @@ export default function (config: any) {
 	}
 
 	// Base Path
-	if (!config.basePath) {
-		console.log("Base path not defined");
-		return false;
-	}
+	// TBD default value
+	// if (!config.basePath) {
+	// 	console.log("Base path not defined");
+	// 	return false;
+	// }
 
 	// Password
 	if (!config.password) {

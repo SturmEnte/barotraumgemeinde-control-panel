@@ -27,17 +27,17 @@ const app = express();
 app.set("view engine", "ejs");
 
 // Make the public folder accessible
-app.use(config.basePath, express.static(join(__dirname, "../public")));
+app.use(express.static(join(__dirname, "../public")));
 
-app.use(config.basePath + "/login", loginRouter);
-app.get(config.basePath + "/logout", (req, res) => {
+app.use("/login", loginRouter);
+app.get("/logout", (req, res) => {
 	res.clearCookie("session").redirect(config.basePath + "/login");
 });
 
 app.use(cookieParser());
 
 // Make sure that the dashboard is only accessible if the client is logged in
-app.all(config.basePath + "*splat", (req, res, next) => {
+app.all("*splat", (req, res, next) => {
 	if (!req.cookies.session) {
 		res.clearCookie("session").redirect(config.basePath + "/login");
 		return;
@@ -52,14 +52,14 @@ app.all(config.basePath + "*splat", (req, res, next) => {
 });
 
 // Dashboard
-app.all(config.basePath + "/", (_, res) => {
+app.all("/", (_, res) => {
 	res.redirect(config.basePath + "/dashboard");
 });
 
-app.use(config.basePath + "/dashboard", dashboardRouter);
+app.use("/dashboard", dashboardRouter);
 
 // Catch all other sites and respond with not found
-app.all(config.basePath + "*splat", (req, res) => {
+app.all("*splat", (req, res) => {
 	res.status(404).render(join(__dirname, "./views/404.ejs"), { basePath: config.basePath });
 });
 
