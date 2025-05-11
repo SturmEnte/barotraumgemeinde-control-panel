@@ -77,6 +77,9 @@ router.post("/restart", (req, res) => {
 
 	const params = new URLSearchParams({ status, result });
 
+	res.redirect(config.basePath + "/dashboard?" + params.toString());
+});
+
 	res.redirect(req.baseUrl + "?" + params.toString());
 });
 
