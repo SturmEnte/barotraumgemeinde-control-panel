@@ -115,7 +115,7 @@ router.post("/stop-restart", (req, res) => {
 
 	const params = new URLSearchParams({ status, result });
 
-	res.redirect(req.baseUrl + "?" + params.toString());
+	res.redirect(config.basePath + "/dashboard?" + params.toString());
 });
 
 export default router;
