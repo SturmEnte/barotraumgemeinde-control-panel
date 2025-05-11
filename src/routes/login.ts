@@ -8,7 +8,7 @@ const config = require("../../config.json");
 
 const router = Router();
 
-router.get("/", (req, res) => res.render(join(__dirname, "../", "views", "login.ejs")));
+router.get("/", (req, res) => res.render(join(__dirname, "../", "views", "login.ejs"), { basePath: config.basePath }));
 
 router.use(urlencoded());
 
@@ -24,11 +24,11 @@ router.post("/", (req, res) => {
 	}
 
 	if (error) {
-		res.render(join(__dirname, "../views/login.ejs"), { error });
+		res.render(join(__dirname, "../views/login.ejs"), { basePath: config.basePath, error });
 		return;
 	}
 
-	res.cookie("session", newToken(config.sessions.expireIn, config.sessions.tokenBytes), { path: "/", httpOnly: true, maxAge: config.sessions.expireIn }).redirect("/dashboard");
+	res.cookie("session", newToken(config.sessions.expireIn, config.sessions.tokenBytes), { path: "/", httpOnly: true, maxAge: config.sessions.expireIn }).redirect(config.basePath + "/dashboard");
 });
 
 export default router;

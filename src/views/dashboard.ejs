@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Barotraumgemeinde | Dashboard</title>
-		<link rel="stylesheet" href="/vendor/bootstrap-5.3.6/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="<%= basePath %>/vendor/bootstrap-5.3.6/css/bootstrap.min.css" />
 		<style>
 			.fade {
 				transition: opacity 0.85s ease-in-out;
@@ -25,7 +25,7 @@
 		<% } %>
 
 		<div class="container py-5">
-			<a href="/logout" class="btn btn-danger position-absolute top-0 end-0 m-3">Logout</a>
+			<a href="<%= basePath %>/logout" class="btn btn-danger position-absolute top-0 end-0 m-3">Logout</a>
 			<h1 class="text-center mb-4">Barotraumgemeinde Control Panel</h1>
 			<h2 class="text-center mb-5">Servers</h2>
 			<div id="servers" class="row g-4 justify-content-center">
@@ -34,12 +34,19 @@
 					<div class="card bg-secondary text-white">
 						<div class="card-body">
 							<h5 class="card-title"><%= servers[i].name %></h5>
-							<form action="/dashboard/restart" method="post">
-								<h6>Restart initiated at:</h6>
-								<div><%= servers[i].restartInitiatedAt %></div>
+							<% if(typeof servers[i].restartInitiatedAt !== 'undefined') { %>
+							<h6>Restart initiated at:</h6>
+							<div><%= servers[i].restartInitiatedAt %></div>
+							<form action="<%= basePath %>/dashboard/stop-restart" method="post">
+								<input type="text" name="id" value="<%= servers[i].id %>" hidden />
+								<button type="submit" class="btn btn-primary w-100 mt-3">Stop restart</button>
+							</form>
+							<% } else { %>
+							<form action="<%= basePath %>/dashboard/restart" method="post">
 								<input type="text" name="id" value="<%= servers[i].id %>" hidden />
 								<button type="submit" class="btn btn-primary w-100 mt-3">Restart</button>
 							</form>
+							<% } %>
 						</div>
 					</div>
 				</div>
@@ -47,7 +54,7 @@
 			</div>
 		</div>
 
-		<script src="/vendor/bootstrap-5.3.6/js/bootstrap.bundle.min.js"></script>
+		<script src="<%= basePath %>/vendor/bootstrap-5.3.6/js/bootstrap.bundle.min.js"></script>
 		<% if (typeof result !== 'undefined' && typeof status !== 'undefined') { %>
 		<script>
 			window.onload = () => {

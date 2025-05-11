@@ -27,24 +27,24 @@ const app = express();
 app.set("view engine", "ejs");
 
 // Make the public folder accessible
-app.use(express.static(join(__dirname, "../public")));
+app.use(config.basePath, express.static(join(__dirname, "../public")));
 
-app.use("/login", loginRouter);
-app.get("/logout", (req, res) => {
-	res.clearCookie("session").redirect("/login");
+app.use(config.basePath + "/login", loginRouter);
+app.get(config.basePath + "/logout", (req, res) => {
+	res.clearCookie("session").redirect(config.basePath + "/login");
 });
 
 app.use(cookieParser());
 
 // Make sure that the dashboard is only accessible if the client is logged in
-app.all("*splat", (req, res, next) => {
+app.all(config.basePath + "*splat", (req, res, next) => {
 	if (!req.cookies.session) {
-		res.clearCookie("session").redirect("/login");
+		res.clearCookie("session").redirect(config.basePath + "/login");
 		return;
 	}
 
 	if (!isTokenValid(req.cookies.session)) {
-		res.clearCookie("session").redirect("/login");
+		res.clearCookie("session").redirect(config.basePath + "/login");
 		return;
 	}
 
@@ -52,15 +52,15 @@ app.all("*splat", (req, res, next) => {
 });
 
 // Dashboard
-app.all("/", (_, res) => {
-	res.redirect("/dashboard");
+app.all(config.basePath + "/", (_, res) => {
+	res.redirect(config.basePath + "/dashboard");
 });
 
-app.use("/dashboard", dashboardRouter);
+app.use(config.basePath + "/dashboard", dashboardRouter);
 
 // Catch all other sites and respond with not found
-app.all("*splat", (req, res) => {
-	res.status(404).sendFile(join(__dirname, "./views/404.html"));
+app.all(config.basePath + "*splat", (req, res) => {
+	res.status(404).render(join(__dirname, "./views/404.ejs"), { basePath: config.basePath });
 });
 
 app.listen(config.port, () => {

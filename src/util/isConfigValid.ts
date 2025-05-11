@@ -15,6 +15,12 @@ export default function (config: any) {
 		return false;
 	}
 
+	// Base Path
+	if (!config.basePath) {
+		console.log("Base path not defined");
+		return false;
+	}
+
 	// Password
 	if (!config.password) {
 		console.log("Password not defined");

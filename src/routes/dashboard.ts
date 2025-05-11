@@ -37,7 +37,7 @@ router.get("/", (req, res) => {
 		server.restartInitiatedAt = formatDate(date);
 	}
 
-	res.render(join(__dirname, "../views/dashboard.ejs"), { servers: config.servers, status: req.query.status, result: req.query.result });
+	res.render(join(__dirname, "../views/dashboard.ejs"), { basePath: config.basePath, servers: config.servers, status: req.query.status, result: req.query.result });
 });
 
 router.use(urlencoded());

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Barotraumgemeinde | Login</title>
-		<link rel="stylesheet" href="/vendor/bootstrap-5.3.6/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="<%= basePath %>/vendor/bootstrap-5.3.6/css/bootstrap.min.css" />
 	</head>
 	<body class="bg-dark text-white d-flex justify-content-center align-items-center vh-100">
 		<div class="card bg-secondary text-white p-4" style="width: auto">
@@ -13,7 +13,7 @@
 			<% if (typeof error != 'undefined') { %>
 			<div class="alert alert-danger" role="alert"><%= error %></div>
 			<% } %>
-			<form action="/login" method="POST">
+			<form action="<%= basePath %>/login" method="POST">
 				<div class="mb-3">
 					<label for="password" class="form-label">Password</label>
 					<input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required />
