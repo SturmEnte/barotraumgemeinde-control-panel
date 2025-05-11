@@ -25,6 +25,13 @@ function copy(cb: any) {
 		src(file).pipe(dest("build"));
 	});
 
+	// Copy config
+	if (fs.existsSync("./config.json")) {
+		fs.copyFileSync("./config.json", "./build/config.json");
+	} else {
+		console.log("No config to copy found");
+	}
+
 	// Copy all folders in the folders array to their location in the build directory
 	folders.forEach((folder) => {
 		src(`${folder}/**/*`).pipe(dest(`build/${folder}`));
