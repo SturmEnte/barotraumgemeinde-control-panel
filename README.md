@@ -48,5 +48,6 @@ After that you just have to run `npm run build`. The "compiled" project will be 
 The `node_modules` folder will not be copied so you have to run `npm install` in the build directory again.
 
 ## Issues
-I developed the project with Node.js `v22.15.0` and npm `11.3.0`. If you have any issues please make sure the cause is not an unsupported Node.js or npm version.
+I developed the project with Node.js `v22.15.0` and npm `11.3.0`. \
+If you have any issues please make sure the cause is not an unsupported Node.js or npm version.
 Please provide a detailed description on what you have to do to get the issue and provide error logs if there are any for the issue.
